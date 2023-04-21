@@ -18,4 +18,14 @@ public class ButtonController : MonoBehaviour
             Application.Quit();
         #endif
     }
+
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void BackToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
 }
