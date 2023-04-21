@@ -8615,6 +8615,7 @@ GameObject:
   - component: {fileID: 1486436190}
   - component: {fileID: 1486436195}
   - component: {fileID: 1486436194}
+  - component: {fileID: 1486436196}
   m_Layer: 0
   m_Name: Bomberbean
   m_TagString: Untagged
@@ -8731,6 +8732,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1486436193}
   movementSpeed: 5
+--- !u!114 &1486436196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1486436189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a17865ccad89243fe85006cdd8d69398, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bombPrefab: {fileID: 7035660775515524797, guid: c7df75c34e01d434a8d73479ce6e82da, type: 3}
+  layerNum: 7
+  rayLength: 1
+  fuseTime: 2.5
 --- !u!1001 &1491072821
 PrefabInstance:
   m_ObjectHideFlags: 0
