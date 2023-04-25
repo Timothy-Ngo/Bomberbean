@@ -34,6 +34,7 @@ public class BombMechanics : MonoBehaviour
     private RaycastHit explosion;
     private int layerMask;
     private float currentCooldown;
+    private float cooldownPercent;
 
     // Update is called once per frame
     void Update()
@@ -42,11 +43,10 @@ public class BombMechanics : MonoBehaviour
         {
             if (currentBombs > 0)
             {
-                Debug.Log("Bomb Placed");
                 //Debug.Log(transform.position);
                 //Debug.Log(new Vector3(Mathf.Round(transform.position.x), 1, Mathf.Round(transform.position.z)));
                 playerBomb = Instantiate(bombPrefab, new Vector3(Mathf.Round(transform.position.x), 1, Mathf.Round(transform.position.z)), Quaternion.identity);
-                Explosion(playerBomb, fuseTime, layerMask);
+                StartCoroutine(Explosion(playerBomb, fuseTime, layerMask));
                 currentBombs--;
                 bombUI.UpdateBomb(currentBombs);
             }
@@ -55,35 +55,66 @@ public class BombMechanics : MonoBehaviour
         if (currentBombs < maxBombs)
         {
             currentCooldown -= Time.deltaTime;
+            cooldownPercent = currentCooldown / maxCooldown;
+            bombUI.CooldownBar(cooldownPercent);
             if (currentCooldown <= 0)
             {
                 currentCooldown = maxCooldown;
                 currentBombs++;
                 bombUI.UpdateBomb(currentBombs);
-                Debug.Log("New Bomb available");
             }
-            Debug.Log("currentCooldown: " + currentCooldown);
+            //Debug.Log("currentCooldown: " + currentCooldown);
         }
+        
 
     }
 
 
 
 
-
+    public HitpointController hp;
+    public float additionalRange = 1.5f;
     private List<Vector3> directions = new List<Vector3>() { Vector3.forward, Vector3.back, Vector3.left, Vector3.right };
-    void Explosion(GameObject obj, float destroyTime, int collisionLayer)
+    IEnumerator Explosion(GameObject obj, float destroyTime, int collisionLayer)
     {
+        bool playerHit = false;
         Destroy(obj, destroyTime);
+        yield return new WaitForSeconds(destroyTime - 0.1f);
         foreach (Vector3 direction in directions)
         {
-            if (Physics.Raycast(obj.transform.position, direction, out explosion, rayLength, collisionLayer))
+            if (!playerHit && Physics.Raycast(obj.transform.position - direction, direction * additionalRange, out explosion, rayLength, collisionLayer) )
             {
+                Debug.Log("------------------------------------------");
                 Debug.Log("Collided with " + explosion.collider.gameObject.name);
-                Destroy(explosion.collider.gameObject, destroyTime);
+                if (explosion.collider.gameObject.CompareTag("Player"))
+                {
+                    //if numlives == 0 give game over screen
+                    hp.DecLives();
+                    if (hp.numLives == 0)
+                    {
+                        Debug.Log("Game Over");
+                    }
+                    playerHit = true;
+                    Debug.Log("Player hit by explosion");
+                }
+            }
+            if (Physics.Raycast(obj.transform.position, direction * additionalRange, out explosion, rayLength, collisionLayer))
+            {
+                Debug.Log("------------------------------------------");
+                Debug.Log("Collided with " + explosion.collider.gameObject.name);
+                if (explosion.collider.gameObject.CompareTag("BreakableBlock"))
+                {
+                    Destroy(explosion.collider.gameObject);
+                }
+                else if (explosion.collider.gameObject.CompareTag("Player"))
+                {
+                    //if numlives == 0 give game over screen
+                    hp.DecLives();
+                    playerHit = true;
+                    Debug.Log("Player hit by explosion");
+                }
             }
         }
-
 
     }
 

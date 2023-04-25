@@ -5,6 +5,7 @@ using UnityEngine;
 public class UIController : MonoBehaviour
 {
     public GameObject pauseMenu;
+    public GameObject bombIndicators;
     private bool isPaused;
     // Start is called before the first frame update
     void Start()
@@ -31,11 +32,15 @@ public class UIController : MonoBehaviour
     {
         Time.timeScale = 0;
         pauseMenu.SetActive(true);
+        bombIndicators.SetActive(false);
+        isPaused = true;
     }
 
     public void UnpauseGame()
     {
         Time.timeScale = 1;
         pauseMenu.SetActive(false);
+        bombIndicators.SetActive(true);
+        isPaused = false;
     }
 }
