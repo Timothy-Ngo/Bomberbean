@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 6637027770720887371}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -35,7 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6637027770720887348
 MeshFilter:
@@ -129,7 +129,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45e0168cc70b1c243925cdb2236c964e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 0}
+  player: {fileID: 0}
+  enemy: {fileID: 6637027770720887349}
   movementSpeed: 1
 --- !u!65 &6637027770720887371
 BoxCollider:
