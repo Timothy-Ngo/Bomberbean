@@ -5,20 +5,20 @@ using UnityEngine;
 public class BombMechanics : MonoBehaviour
 {
     [Tooltip("Prefab for bomb")]
-    public GameObject bombPrefab;
+    public GameObject bombPrefab; //
     [Tooltip("Number of layer that bomb explosion destroys")]
-    public int layerNum = 7;
+    public int layerNum = 7; //
     [Tooltip("How long it takes for the bomb to explode")]
-    public float fuseTime = 2.5f;
+    public float fuseTime = 2.5f; //
     [Tooltip("Explosion range")]
     public float rayLength = 1.0f;
     [Tooltip("Max amount of bombs the player can regenerate")]
-    public int maxBombs = 2;
+    public int maxBombs = 2; //
     [Tooltip("Cooldown until another bomb is regenerated for player ")]
     public float maxCooldown = 3.0f;
     public GameObject uiObject;
     private BombUI bombUI;
-    private int currentBombs;
+    private int currentBombs;//
 
     // Start is called before the first frame update
     void Start()
@@ -29,10 +29,9 @@ public class BombMechanics : MonoBehaviour
         bombUI = uiObject.GetComponentInChildren<BombUI>();
     }
 
-    private GameObject playerBomb;
-    private Vector3 bombSpawn;
+    private GameObject playerBomb; //
     private RaycastHit explosion;
-    private int layerMask;
+    private int layerMask; //
     private float currentCooldown;
     private float cooldownPercent;
 
@@ -75,11 +74,11 @@ public class BombMechanics : MonoBehaviour
 
     public RespawnController respawn;
     public HitpointController hp;
-    public float additionalRange = 1.5f;
-    private List<Vector3> directions = new List<Vector3>() { Vector3.forward, Vector3.back, Vector3.left, Vector3.right };
+    public float additionalRange = 1.5f; //
+    private List<Vector3> directions = new List<Vector3>() { Vector3.forward, Vector3.back, Vector3.left, Vector3.right }; //
     IEnumerator Explosion(GameObject obj, float destroyTime, int collisionLayer)
     {
-        bool playerHit = false;
+        bool playerHit = false; //
         Destroy(obj, destroyTime);
         yield return new WaitForSeconds(destroyTime - 0.1f);
         foreach (Vector3 direction in directions)
