@@ -36,6 +36,8 @@ public class BombMechanics : MonoBehaviour
     private float currentCooldown;
     private float cooldownPercent;
 
+    public UIController uiController;
+
     // Update is called once per frame
     void Update()
     {
@@ -71,7 +73,7 @@ public class BombMechanics : MonoBehaviour
 
 
 
-
+    public RespawnController respawn;
     public HitpointController hp;
     public float additionalRange = 1.5f;
     private List<Vector3> directions = new List<Vector3>() { Vector3.forward, Vector3.back, Vector3.left, Vector3.right };
@@ -90,9 +92,11 @@ public class BombMechanics : MonoBehaviour
                 {
                     //if numlives == 0 give game over screen
                     hp.DecLives();
+                    StartCoroutine(respawn.Respawn());
                     if (hp.numLives == 0)
                     {
                         Debug.Log("Game Over");
+                        uiController.GameOver();
                     }
                     playerHit = true;
                     Debug.Log("Player hit by explosion");
@@ -110,6 +114,12 @@ public class BombMechanics : MonoBehaviour
                 {
                     //if numlives == 0 give game over screen
                     hp.DecLives();
+                    StartCoroutine(respawn.Respawn());
+                    if (hp.numLives == 0)
+                    {
+                        Debug.Log("Game Over");
+                        uiController.GameOver();
+                    }
                     playerHit = true;
                     Debug.Log("Player hit by explosion");
                 }
@@ -117,6 +127,7 @@ public class BombMechanics : MonoBehaviour
         }
 
     }
+
 
 }
 
