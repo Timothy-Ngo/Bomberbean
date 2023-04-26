@@ -27,6 +27,10 @@ public class UIController : MonoBehaviour
     [Header ("Game Win")]
     public GameObject winScreen;
 
+    [Header ("Audio")]
+    public AudioSource loseSound;
+    public AudioSource winSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -72,12 +76,14 @@ public class UIController : MonoBehaviour
     {
         Time.timeScale = 0;
         gameOver.SetActive(true);
+        loseSound.Play();
     }
 
     public void GameWin()
     {
         Time.timeScale = 0;
         winScreen.SetActive(true);
+        winSound.Play();
     }
 
      public void CooldownBar(float percentOfSize)

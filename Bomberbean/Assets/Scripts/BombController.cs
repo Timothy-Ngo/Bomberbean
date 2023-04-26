@@ -31,6 +31,10 @@ public class BombController : MonoBehaviour
     public GameObject prefabKey;
     private GameObject playerKey;
     
+    [Header("Audio")]
+    public AudioSource[] sounds;
+    public AudioSource bombPutDown;
+    public AudioSource bombExplosion;
     
     // Start is called before the first frame update
     void Start()
@@ -38,6 +42,8 @@ public class BombController : MonoBehaviour
         player1 = playerObj.GetComponent<Player>();
         numBombs = maxBombs;
         layerMask = 1 << layerNum;
+
+        
     }
 
     // Update is called once per frame
@@ -61,19 +67,28 @@ public class BombController : MonoBehaviour
     {
         if (numBombs > 0)
         {   
+            
             playerBomb = Instantiate(prefabBomb, new Vector3(Mathf.Round(playerObj.transform.position.x), 1, Mathf.Round(playerObj.transform.position.z)), Quaternion.identity);
+            sounds = playerBomb.GetComponents<AudioSource>();
+            bombPutDown = sounds[0];
+            bombExplosion = sounds[1];
+            bombPutDown.Play();
             StartCoroutine(Explosion(playerBomb, fuseTime, layerMask));
             numBombs--;
             ui.UpdateBomb(numBombs);
             Debug.Log("Bomb Deployed");
+
+            
         }
     }
 
     IEnumerator Explosion(GameObject obj, float destroyTime, int collisionLayer)
     {
+        
         bool playerHit = false;
         Destroy(obj, destroyTime);
         yield return new WaitForSeconds(destroyTime - 0.1f);
+        bombExplosion.Play();
         Debug.Log("Explosion");
         foreach(Vector3 direction in directions)
         {
@@ -106,6 +121,7 @@ public class BombController : MonoBehaviour
                 } 
             }
         }
+        
     }
 
     public void KillPlayer()

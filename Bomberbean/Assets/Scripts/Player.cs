@@ -20,6 +20,11 @@ public class Player : MonoBehaviour
     public Vector3 respawnPoint;
     public BombController bc;
 
+    [Header("Audio")]
+    public AudioSource[] sounds;
+    private AudioSource deathSound;
+    private AudioSource pickupSound;
+    private AudioSource reviveSound;
     
 
     // Start is called before the first frame update
@@ -27,6 +32,11 @@ public class Player : MonoBehaviour
     {
         numLives = maxLives; 
         ui.UpdatePlayer();  
+
+        sounds = GetComponents<AudioSource>();
+        deathSound = sounds[0];
+        pickupSound = sounds[1];
+        reviveSound = sounds[2];
     }
 
     // Update is called once per frame
@@ -41,6 +51,7 @@ public class Player : MonoBehaviour
     }
     public void DecLives()
     {
+        deathSound.Play();
         --numLives;
         ui.UpdatePlayer();
     }
@@ -56,6 +67,7 @@ public class Player : MonoBehaviour
         transform.Translate(new Vector3(transform.position.x, transform.position.y + addHeight, transform.position.z));
         yield return new WaitForSeconds(respawnTime);
         transform.position = respawnPoint;
+        reviveSound.Play();
     }
 
     void OnCollisionEnter(Collision col)
@@ -71,6 +83,7 @@ public class Player : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Key"))
         {
+            pickupSound.Play();
             numKeys++;
             col.gameObject.SetActive(false);
             ui.UpdateKeys();
