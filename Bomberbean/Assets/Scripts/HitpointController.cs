@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 public class HitpointController : MonoBehaviour
 {
+    // DO NOT NEED THIS ANYMORE
     public int maxLives = 3;
     public int numLives;
     private TextMeshProUGUI livesUI;
@@ -18,10 +19,7 @@ public class HitpointController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            ChangeLivesCount(--numLives);
-        }
+       
     }
 
     public void ChangeLivesCount(int newCount)

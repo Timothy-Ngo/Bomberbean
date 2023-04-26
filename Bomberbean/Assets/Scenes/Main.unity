@@ -2088,7 +2088,7 @@ Transform:
   m_Children:
   - {fileID: 1168759841}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &418645947
 PrefabInstance:
@@ -8724,7 +8724,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1352740501
 GameObject:
@@ -9282,8 +9282,6 @@ GameObject:
   - component: {fileID: 1486436190}
   - component: {fileID: 1486436195}
   - component: {fileID: 1486436194}
-  - component: {fileID: 1486436196}
-  - component: {fileID: 1486436197}
   m_Layer: 7
   m_Name: Bomberbean
   m_TagString: Player
@@ -9398,44 +9396,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f95dfdc4a06aa4440ba6fe876daf2440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1486436193}
+  maxLives: 3
+  numLives: 0
   movementSpeed: 5
---- !u!114 &1486436196
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1486436189}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a17865ccad89243fe85006cdd8d69398, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bombPrefab: {fileID: 7035660775515524797, guid: c7df75c34e01d434a8d73479ce6e82da, type: 3}
-  layerNum: 7
-  fuseTime: 2.5
-  rayLength: 1
-  maxBombs: 2
-  maxCooldown: 3
-  uiObject: {fileID: 1407925019}
-  uiController: {fileID: 1745313631}
-  respawn: {fileID: 1486436197}
-  hp: {fileID: 40523375}
-  additionalRange: 1.5
---- !u!114 &1486436197
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1486436189}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5214849ae7e6e4ac7ba43d9a0cc602f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  respawnTime: 1.5
+  ui: {fileID: 1745313631}
+  respawnTime: 2
   addHeight: 50
   respawnPoint: {x: -6, y: 1, z: -6}
 --- !u!1001 &1491072821
@@ -10324,6 +10289,106 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1646068362}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1647208728
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1647208730}
+  - component: {fileID: 1647208729}
+  m_Layer: 0
+  m_Name: Input Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1647208729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1647208728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dc777bd6a9424da69eadf7ede62276a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bc: {fileID: 1652684583}
+  playerObj: {fileID: 1486436189}
+--- !u!4 &1647208730
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1647208728}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 224.69228, y: 260.67084, z: -2.018642}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1652684582
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1652684584}
+  - component: {fileID: 1652684583}
+  m_Layer: 0
+  m_Name: Bomb Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1652684583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1652684582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbba19c5631394f97919be45caeed7f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ui: {fileID: 1745313631}
+  maxBombs: 2
+  maxCooldown: 3
+  numBombs: 0
+  prefabBomb: {fileID: 7035660775515524797, guid: c7df75c34e01d434a8d73479ce6e82da, type: 3}
+  playerObj: {fileID: 1486436189}
+  fuseTime: 2.5
+  layerNum: 7
+  explosionLength: 1
+  additionalRange: 1.5
+--- !u!4 &1652684584
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1652684582}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 224.69228, y: 260.67084, z: -2.018642}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1665625282
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10675,7 +10740,7 @@ GameObject:
   - component: {fileID: 1745313632}
   - component: {fileID: 1745313631}
   m_Layer: 0
-  m_Name: UI
+  m_Name: UI Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10696,6 +10761,11 @@ MonoBehaviour:
   pauseMenu: {fileID: 515949539}
   bombIndicators: {fileID: 1407925019}
   gameOver: {fileID: 722619348}
+  count: {fileID: 325771995}
+  maxWidth: 500
+  cooldownBar: {fileID: 1793298166}
+  player1: {fileID: 1486436195}
+  livesUI: {fileID: 130268640}
 --- !u!4 &1745313632
 Transform:
   m_ObjectHideFlags: 0
@@ -10710,7 +10780,7 @@ Transform:
   m_Children:
   - {fileID: 978347059}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1778015831
 PrefabInstance:

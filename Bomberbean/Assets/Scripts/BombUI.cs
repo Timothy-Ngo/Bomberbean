@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 public class BombUI : MonoBehaviour
 {
-
+    //DO NOT NEED THIS ANYMORE
     public TextMeshProUGUI count;
     public float maxWidth = 500;
     public Image cooldownBar;
@@ -16,8 +16,8 @@ public class BombUI : MonoBehaviour
     void Awake()
     {
         count = GetComponentInChildren<TextMeshProUGUI>();
-        barSize = cooldownBar.rectTransform;
-        CooldownBar(0);
+        barSize = cooldownBar.rectTransform;//
+        CooldownBar(0);//
     }
 
     public void UpdateBomb(int newCount)
@@ -25,7 +25,7 @@ public class BombUI : MonoBehaviour
         count.text = "" + newCount;
     }
 
-    public void CooldownBar(float percentOfSize)
+    public void CooldownBar(float percentOfSize)//
     {
         barSize.sizeDelta = new Vector2(maxWidth * percentOfSize, barSize.sizeDelta.y);
     }
