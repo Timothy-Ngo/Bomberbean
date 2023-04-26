@@ -79,13 +79,7 @@ public class BombController : MonoBehaviour
             {
                if (explosion.collider.gameObject.CompareTag("Player"))
                {
-                    player1.DecLives();
-                    StartCoroutine(player1.Respawn());
-                    if (player1.numLives == 0)
-                    {
-                        ui.GameOver();
-                        Debug.Log("Game Over");
-                    }
+                    KillPlayer();
                     playerHit = true;
                     Debug.Log("Player hit");
                } 
@@ -95,20 +89,30 @@ public class BombController : MonoBehaviour
                 if (explosion.collider.gameObject.CompareTag("BreakableBlock"))
                 {
                     Destroy(explosion.collider.gameObject);
+                }
+                else if (explosion.collider.gameObject.CompareTag("Enemy"))
+                {
+                    Destroy(explosion.collider.gameObject);
+                    Debug.Log("hit enemy");
                 } 
                 else if (explosion.collider.gameObject.CompareTag("Player"))
                 {
-                    player1.DecLives();
-                    StartCoroutine(player1.Respawn());
-                    if (player1.numLives == 0)
-                    {
-                        ui.GameOver();
-                        Debug.Log("Game Over");
-                    }
+                    KillPlayer();
                     playerHit = true;
                     Debug.Log("Player hit");
                 } 
             }
+        }
+    }
+
+    public void KillPlayer()
+    {
+        player1.DecLives();
+        StartCoroutine(player1.Respawn());
+        if (player1.numLives == 0)
+        {
+            ui.GameOver();
+            Debug.Log("Game Over");
         }
     }
 

@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     public float respawnTime = 2.0f;
     public float addHeight = 50;
     public Vector3 respawnPoint;
-    
+    public BombController bc;
 
 
 
@@ -53,6 +53,15 @@ public class Player : MonoBehaviour
         transform.Translate(new Vector3(transform.position.x, transform.position.y + addHeight, transform.position.z));
         yield return new WaitForSeconds(respawnTime);
         transform.position = respawnPoint;
+    }
+
+    void OnCollisionEnter(Collision col)
+    {
+        if (col.gameObject.CompareTag("Enemy"))
+        {
+            Debug.Log("collided with enemy");
+            bc.KillPlayer();
+        }
     }
 
 }
