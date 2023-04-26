@@ -6,11 +6,13 @@ public class UIController : MonoBehaviour
 {
     public GameObject pauseMenu;
     public GameObject bombIndicators;
+    public GameObject gameOver;
     private bool isPaused;
     // Start is called before the first frame update
     void Start()
     {
         pauseMenu.SetActive(false);
+        gameOver.SetActive(false);
         isPaused = false;
         Time.timeScale = 1;
     }
@@ -42,5 +44,11 @@ public class UIController : MonoBehaviour
         pauseMenu.SetActive(false);
         bombIndicators.SetActive(true);
         isPaused = false;
+    }
+
+    public void GameOver()
+    {
+        Time.timeScale = 0;
+        gameOver.SetActive(true);
     }
 }
