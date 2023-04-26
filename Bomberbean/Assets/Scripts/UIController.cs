@@ -21,6 +21,12 @@ public class UIController : MonoBehaviour
     public Player player1;
     public TextMeshProUGUI livesUI;
 
+    [Header ("Keys UI")]
+    public TextMeshProUGUI keysUI;
+
+    [Header ("Game Win")]
+    public GameObject winScreen;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -68,6 +74,12 @@ public class UIController : MonoBehaviour
         gameOver.SetActive(true);
     }
 
+    public void GameWin()
+    {
+        Time.timeScale = 0;
+        winScreen.SetActive(true);
+    }
+
      public void CooldownBar(float percentOfSize)
     {
         barSize.sizeDelta = new Vector2(maxWidth * percentOfSize, barSize.sizeDelta.y);
@@ -81,6 +93,11 @@ public class UIController : MonoBehaviour
     public void UpdatePlayer()
     {
         livesUI.text = "Lives: " + player1.numLives;   
+    }
+
+    public void UpdateKeys()
+    {
+        keysUI.text = "Keys: " + player1.numKeys;
     }
 
 }

@@ -27,7 +27,9 @@ public class BombController : MonoBehaviour
     private List<Vector3> directions = new List<Vector3>() { Vector3.forward, Vector3.back, Vector3.left, Vector3.right };
     private RaycastHit explosion;
 
-
+    [Header("Keys")]
+    public GameObject prefabKey;
+    private GameObject playerKey;
     
     
     // Start is called before the first frame update
@@ -92,6 +94,7 @@ public class BombController : MonoBehaviour
                 }
                 else if (explosion.collider.gameObject.CompareTag("Enemy"))
                 {
+                    playerKey = Instantiate(prefabKey, new Vector3(Mathf.Round(explosion.collider.gameObject.transform.position.x), 1.25f, Mathf.Round(explosion.collider.gameObject.transform.position.z)), Quaternion.identity);
                     Destroy(explosion.collider.gameObject);
                     Debug.Log("hit enemy");
                 } 

@@ -8,6 +8,9 @@ public class Player : MonoBehaviour
     public int maxLives = 3;
     public int numLives;
     public float movementSpeed = 10f;
+
+    public int numKeys = 0;
+
     public UIController ui;
     private Vector3 currentPosition;
 
@@ -17,7 +20,7 @@ public class Player : MonoBehaviour
     public Vector3 respawnPoint;
     public BombController bc;
 
-
+    
 
     // Start is called before the first frame update
     void Start()
@@ -61,6 +64,17 @@ public class Player : MonoBehaviour
         {
             Debug.Log("collided with enemy");
             bc.KillPlayer();
+        }
+    }
+
+    void OnTriggerEnter(Collider col)
+    {
+        if (col.gameObject.CompareTag("Key"))
+        {
+            numKeys++;
+            col.gameObject.SetActive(false);
+            ui.UpdateKeys();
+            Debug.Log("picked up key");
         }
     }
 
