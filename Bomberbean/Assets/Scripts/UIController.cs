@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class UIController : MonoBehaviour
 {
@@ -27,6 +28,11 @@ public class UIController : MonoBehaviour
     [Header ("Game Win")]
     public GameObject winScreen;
 
+    [Header ("Timer UI")]
+    float currentTime;
+    public int startMinutes;
+    public TextMeshProUGUI currentTimeText;
+
     [Header ("Audio")]
     public AudioSource loseSound;
     public AudioSource winSound;
@@ -40,6 +46,8 @@ public class UIController : MonoBehaviour
         Time.timeScale = 1;
         barSize = cooldownBar.rectTransform;
         CooldownBar(0);
+
+        currentTime = startMinutes * 60;
     }
     
     
@@ -53,6 +61,16 @@ public class UIController : MonoBehaviour
             else   
                 PauseGame();
         }
+        currentTime -= Time.deltaTime;
+        
+        TimeSpan time = TimeSpan.FromSeconds(currentTime);
+        if (time.Seconds == 0 && time.Minutes == 0)
+        {
+            GameOver();
+        }
+        currentTimeText.text = time.Minutes.ToString() + ":" + time.Seconds.ToString();
+
+        
        
     }
 
