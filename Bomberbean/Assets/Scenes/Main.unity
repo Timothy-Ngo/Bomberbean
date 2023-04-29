@@ -4124,6 +4124,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 6637027770720887345, guid: 9407cf0d5125f484ea6bc6b4d87e575a, type: 3}
+      propertyPath: m_Constraints
+      value: 84
+      objectReference: {fileID: 0}
+    - target: {fileID: 6637027770720887348, guid: 9407cf0d5125f484ea6bc6b4d87e575a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 6637027770720887349, guid: 9407cf0d5125f484ea6bc6b4d87e575a, type: 3}
       propertyPath: m_RootOrder
       value: -1

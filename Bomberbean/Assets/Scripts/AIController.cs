@@ -31,14 +31,16 @@ public class AIController : MonoBehaviour
     void FixedUpdate()
     {
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, movementSpeed*Time.deltaTime);
-        
+        //Vector3 newDirection = Vector3.RotateTowards(transform.forward, new Vector3(0, targetPosition.y, 0), movementSpeed*Time.deltaTime, 0.0f);
+        //newDirection = new Vector3(0, newDirection.y, 0);
+        //transform.rotation = Quaternion.LookRotation(newDirection);
     }
 
     IEnumerator AIMovement()
     {
         while(true)
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(2);
 
             
 
@@ -54,22 +56,43 @@ public class AIController : MonoBehaviour
 
                 if (movementNum == 0) // left
                 {
+                    //transform.Rotate(new Vector3(0, 90, 0));
                     spacesX += -(Random.Range(rangeMin, rangeMax)); // gets random # of spaces to move
                 }
                 else if (movementNum == 1) // right
                 {
+                    //transform.Rotate(new Vector3(0, -90, 0));
                     spacesX += Random.Range(rangeMin, rangeMax); // gets random # of spaces to move
                 }
                 else if (movementNum == 2) // up
                 {
+                    //transform.Rotate(new Vector3(0, 180, 0));
                     spacesZ += -(Random.Range(rangeMin, rangeMax)); // gets random # of spaces to move
                 }
                 else // down
                 {
+                    //transform.Rotate(new Vector3(0, 0, 0));
                     spacesZ += Random.Range(rangeMin, rangeMax); // gets random # of spaces to move
                 }
 
                 targetPosition = new Vector3(Mathf.Round(spacesX), transform.position.y, Mathf.Round(spacesZ));
+            }
+
+            if (targetPosition.x < transform.position.x)
+            {
+                transform.Rotate(new Vector3(0, 90, 0));
+            }
+            else if (targetPosition.x < transform.position.x)
+            {
+                transform.Rotate(new Vector3(0, -90, 0));
+            }
+            else if (targetPosition.z < transform.position.z)
+            {
+                transform.Rotate(new Vector3(0, 180, 0));
+            }
+            else
+            {
+                transform.Rotate(new Vector3(0, 0, 0));
             }
             
         }
