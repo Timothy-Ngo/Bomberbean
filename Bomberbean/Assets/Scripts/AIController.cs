@@ -77,7 +77,7 @@ public class AIController : MonoBehaviour
 
                 targetPosition = new Vector3(Mathf.Round(spacesX), transform.position.y, Mathf.Round(spacesZ));
             }
-
+    
             if (targetPosition.x < transform.position.x)
             {
                 transform.Rotate(new Vector3(0, 90, 0));
