@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AIController : MonoBehaviour
 {
+    private Rigidbody m_Rb;
     public GameObject player;
     public Transform enemy;
     public float movementSpeed = 1f;
@@ -17,12 +18,13 @@ public class AIController : MonoBehaviour
     private float spacesX = 0f;
     private float spacesZ = 0f;
 
-    Vector3 targetPosition;
+    Vector3 targetPosition, movement;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        m_Rb = GetComponent<Rigidbody>();
         spacesX = transform.position.x;
         spacesZ = transform.position.z;
         StartCoroutine(AIMovement());
@@ -34,13 +36,31 @@ public class AIController : MonoBehaviour
         //Vector3 newDirection = Vector3.RotateTowards(transform.forward, new Vector3(0, targetPosition.y, 0), movementSpeed*Time.deltaTime, 0.0f);
         //newDirection = new Vector3(0, newDirection.y, 0);
         //transform.rotation = Quaternion.LookRotation(newDirection);
+        /*
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
+        //Vector3 movement = new Vector3(1, 0, 0).normalized;
+        //if (movement == Vector3.zero)
+        //{
+        //    return;
+        //}
+
+        targetPosition = targetPosition.normalized;
+        Quaternion targetRotation = Quaternion.LookRotation(targetPosition);
+        targetRotation = Quaternion.RotateTowards(
+            transform.rotation,
+            targetRotation,
+            360 * Time.fixedDeltaTime);
+        //m_Rb.MovePosition(m_Rb.position + targetPosition * movementSpeed * Time.fixedDeltaTime);
+        //m_Rb.MoveRotation(targetRotation);
+        */
     }
 
     IEnumerator AIMovement()
     {
         while(true)
         {
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(1);
 
             
 
@@ -75,9 +95,10 @@ public class AIController : MonoBehaviour
                     spacesZ += Random.Range(rangeMin, rangeMax); // gets random # of spaces to move
                 }
 
-                targetPosition = new Vector3(Mathf.Round(spacesX), transform.position.y, Mathf.Round(spacesZ));
+                targetPosition = new Vector3(Mathf.Round(spacesX), 1, Mathf.Round(spacesZ));
             }
-    
+            Debug.Log(targetPosition);
+        /*
             if (targetPosition.x < transform.position.x)
             {
                 transform.Rotate(new Vector3(0, 90, 0));
@@ -94,7 +115,7 @@ public class AIController : MonoBehaviour
             {
                 transform.Rotate(new Vector3(0, 0, 0));
             }
-            
+          */  
         }
     }
 
