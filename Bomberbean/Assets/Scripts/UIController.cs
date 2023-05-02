@@ -13,7 +13,9 @@ public class UIController : MonoBehaviour
     private bool isPaused;
 
     [Header("Bomb UI")]
+    public BombController bc;
     public TextMeshProUGUI count;
+    public Image[] bombIcons;
     public float maxWidth = 500;
     public Image cooldownBar;
     private RectTransform barSize;
@@ -21,6 +23,7 @@ public class UIController : MonoBehaviour
     [Header ("Player UI")]
     public Player player1;
     public TextMeshProUGUI livesUI;
+    public Image[] heartIcons;
 
     [Header ("Keys UI")]
     public TextMeshProUGUI keysUI;
@@ -40,6 +43,7 @@ public class UIController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        InitIcons();
         pauseMenu.SetActive(false);
         gameOver.SetActive(false);
         isPaused = false;
@@ -109,14 +113,30 @@ public class UIController : MonoBehaviour
         barSize.sizeDelta = new Vector2(maxWidth * percentOfSize, barSize.sizeDelta.y);
     }
 
-    public void UpdateBomb(int newCount)
+    private void InitIcons()
     {
-        count.text = "" + newCount;
+        foreach ( Image img in heartIcons)
+            img.enabled = true;
+        foreach (Image img in bombIcons)
+            img.enabled = true;
+    }
+
+    public void UpdateBomb()
+    {
+        //count.text = "" + newCount;
+        // Enables bomb icons in accordance to available bombs to the player
+        for (int i = 0; i < bombIcons.Length; ++i)
+            bombIcons[i].enabled = (i < bc.numBombs);
     }
 
     public void UpdatePlayer()
     {
-        livesUI.text = "Lives: " + player1.numLives;   
+        //livesUI.text = "Lives: " + player1.numLives;  
+        // Enables heart icons in accordance to amount of lives available to the player
+        for (int i = 0; i < heartIcons.Length; ++i)
+            heartIcons[i].enabled = (i < player1.numLives);
+        
+
     }
 
     public void UpdateKeys()
