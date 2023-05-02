@@ -57,7 +57,7 @@ public class BombController : MonoBehaviour
             {
                 currentCooldown = maxCooldown;
                 numBombs++;
-                ui.UpdateBomb(numBombs);
+                ui.UpdateBomb(); // Changed not tested
             }
             //Debug.Log("currentCooldown: " + currentCooldown);
         }
@@ -75,7 +75,7 @@ public class BombController : MonoBehaviour
             bombPutDown.Play();
             StartCoroutine(Explosion(playerBomb, fuseTime, layerMask));
             numBombs--;
-            ui.UpdateBomb(numBombs);
+            ui.UpdateBomb(); // Changed not tested
             Debug.Log("Bomb Deployed");
 
             
