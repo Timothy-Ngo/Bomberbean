@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2314182}
   - component: {fileID: 1163135239117713125}
   - component: {fileID: 8278239035457291932}
+  - component: {fileID: 482730500368026051}
   m_Layer: 0
   m_Name: pPlane3
   m_TagString: Key
@@ -94,7 +95,7 @@ MeshCollider:
   m_GameObject: {fileID: 105912}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
@@ -115,6 +116,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &482730500368026051
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 105912}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 7.4886923, y: 11.366278, z: 4.3323255}
+  m_Center: {x: 0.31444502, y: 3.138778, z: -0.16013856}
 --- !u!1 &170560
 GameObject:
   m_ObjectHideFlags: 0
@@ -146,7 +160,7 @@ Transform:
   m_Children:
   - {fileID: 431008}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1126342062685208539
 MonoBehaviour:

@@ -69,10 +69,13 @@ public class Player : MonoBehaviour
     {
         //transform.Translate(new Vector3(transform.position.x, transform.position.y + addHeight, transform.position.z));
         input.enabled = false;
-        GetComponent<MeshRenderer>().enabled = false;
+        MeshRenderer[] rends = GetComponentsInChildren<MeshRenderer>();
+        foreach(MeshRenderer mesh in rends)
+            mesh.enabled = false;
         transform.position = respawnPoint;
         yield return new WaitForSeconds(respawnTime);
-        GetComponent<MeshRenderer>().enabled = true;
+        foreach(MeshRenderer mesh in rends)
+            mesh.enabled = true;
         input.enabled = true;
         reviveSound.Play();
     }
