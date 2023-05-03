@@ -69,7 +69,7 @@ public class BombController : MonoBehaviour
         if (numBombs > 0)
         {
 
-            playerBomb = Instantiate(prefabBomb, new Vector3(Mathf.Round(playerObj.transform.position.x) , 1, Mathf.Round(playerObj.transform.position.z)) - new Vector3(0.3f,0,0.3f), Quaternion.Euler(60,45,0));
+            playerBomb = Instantiate(prefabBomb, new Vector3(Mathf.Round(playerObj.transform.position.x) , 1, Mathf.Round(playerObj.transform.position.z)), Quaternion.identity);
             sounds = playerBomb.GetComponents<AudioSource>();
             bombPutDown = sounds[0];
             bombExplosion = sounds[1];
