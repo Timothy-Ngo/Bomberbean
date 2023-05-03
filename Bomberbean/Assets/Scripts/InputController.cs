@@ -19,9 +19,20 @@ public class InputController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            bc.DeployBomb();   
+        }
+         
+    }
+
+    void FixedUpdate()
+    {
         if (Input.GetKey(KeyCode.D)) 
         {
-            player1.Move(Vector3.right * Time.deltaTime);   
+            player1.Move(Vector3.right * Time.deltaTime); 
+             
         }
 
         if (Input.GetKey(KeyCode.A)) 
@@ -39,11 +50,6 @@ public class InputController : MonoBehaviour
             player1.Move(Vector3.back * Time.deltaTime);
         }
 
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            bc.DeployBomb();   
-        }
-         
     }
 
     
