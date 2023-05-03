@@ -8178,9 +8178,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a54311706b012c34c86f041826b9a417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  count: {fileID: 0}
-  maxWidth: 500
-  cooldownBar: {fileID: 1793298166}
 --- !u!1001 &1412862943
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9731,18 +9728,17 @@ MonoBehaviour:
   pauseMenu: {fileID: 515949539}
   bombIndicators: {fileID: 1407925019}
   gameOver: {fileID: 722619348}
-  bc: {fileID: 0}
+  bc: {fileID: 1652684583}
   count: {fileID: 325771995}
   bombIcons: []
   maxWidth: 500
   cooldownBar: {fileID: 1793298166}
-  player1: {fileID: 1486436195}
-  livesUI: {fileID: 130268640}
+  player1: {fileID: 919132149530848771}
   heartIcons: []
+  keyIcons: []
   keysUI: {fileID: 831408051}
-  winScreen: {fileID: 186108990}
-  startMinutes: 2
   currentTimeText: {fileID: 711797070}
+  winScreen: {fileID: 186108990}
   loseSound: {fileID: 722619350}
   winSound: {fileID: 186108992}
 --- !u!4 &1745313632
@@ -11484,6 +11480,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8279248604333576070, guid: 48da97183acfaeb42a5fca315ba34335, type: 3}
   m_PrefabInstance: {fileID: 9089571833331507833}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &919132149530848771 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9089571832175252455, guid: 48da97183acfaeb42a5fca315ba34335, type: 3}
+  m_PrefabInstance: {fileID: 9089571833331507833}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132149530848767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f95dfdc4a06aa4440ba6fe876daf2440, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1954677354506080492
 PrefabInstance:
   m_ObjectHideFlags: 0

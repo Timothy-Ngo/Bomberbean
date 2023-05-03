@@ -29,5 +29,15 @@ public class ButtonController : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
+    public void Instructions()
+    {
+        SceneManager.LoadScene("Instructions");
+    }
+
+    public void Credits()
+    {
+        SceneManager.LoadScene("Credits");
+    }
+
 
 }
