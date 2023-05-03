@@ -68,7 +68,7 @@ public class BombController : MonoBehaviour
         if (numBombs > 0)
         {
 
-            playerBomb = Instantiate(prefabBomb, new Vector3(Mathf.Round(playerObj.transform.position.x), 1, Mathf.Round(playerObj.transform.position.z)), Quaternion.identity);
+            playerBomb = Instantiate(prefabBomb, new Vector3(Mathf.Round(playerObj.transform.position.x), 1.5f, Mathf.Round(playerObj.transform.position.z)), Quaternion.identity);
             sounds = playerBomb.GetComponents<AudioSource>();
             bombPutDown = sounds[0];
             bombExplosion = sounds[1];
@@ -85,8 +85,10 @@ public class BombController : MonoBehaviour
 
         bool playerHit = false;
         Destroy(obj, destroyTime);
-        yield return new WaitForSeconds(destroyTime - 0.1f);
+        yield return new WaitForSeconds(destroyTime - 1);
         bombExplosion.Play();
+        obj.GetComponent<ExplosionRenderer>().PlayExplosion();
+        obj.GetComponentInChildren<MeshRenderer>().enabled = false;
         Debug.Log("Explosion");
         foreach (Vector3 direction in directions)
         {
