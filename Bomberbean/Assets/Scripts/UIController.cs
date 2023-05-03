@@ -15,7 +15,7 @@ public class UIController : MonoBehaviour
 
     [Header("Bomb UI")]
     public BombController bc;
-    public TextMeshProUGUI count;
+    //public TextMeshProUGUI count;
     public Image[] bombIcons;
     public float maxWidth = 500;
     public Image cooldownBar;
@@ -36,6 +36,10 @@ public class UIController : MonoBehaviour
 
     [Header ("Game Win")]
     public GameObject winScreen;
+    public int totalBombsUsed = 0;
+    private float finalTime;
+    private int finalKeys;
+    public TextMeshProUGUI stats;
 
     [Header ("Audio")]
     public AudioSource loseSound;
@@ -101,7 +105,13 @@ public class UIController : MonoBehaviour
     public void GameWin()
     {
         Time.timeScale = 0;
+        finalTime = currentTime;
+        finalKeys = player1.numKeys;
         winScreen.SetActive(true);
+        TimeSpan time = TimeSpan.FromSeconds(currentTime);
+        stats.text = "Finishing Time: " + time.Minutes.ToString("D2") + ":" + time.Seconds.ToString("D2") + "\n";
+        stats.text += "Number of Keys Collected: " +  finalKeys + "\n";
+        stats.text += "Number of Bombs Used: " + totalBombsUsed;
         winSound.Play();
     }
 
@@ -123,6 +133,7 @@ public class UIController : MonoBehaviour
         // Enables bomb icons in accordance to available bombs to the player
         for (int i = 0; i < bombIcons.Length; ++i)
             bombIcons[i].enabled = (i < bc.numBombs);
+
         Debug.Log("numBombs: " + bc.numBombs);
     }
 

@@ -10,7 +10,7 @@ public class BombController : MonoBehaviour
     public int maxBombs = 2;
     public float maxCooldown = 3.0f;
     public int numBombs;
-    private float currentCooldown;
+    private float currentCooldown = 0;
 
     [Header("Bomb Rendering")]
     public GameObject prefabBomb;
@@ -22,7 +22,7 @@ public class BombController : MonoBehaviour
     public float fuseTime = 2.5f;
     public int layerNum = 7;
     public float explosionLength = 1.0f;
-    public float additionalRange = 1.5f;
+    public float additionalRange = 2f;
     private int layerMask;
     private List<Vector3> directions = new List<Vector3>() { Vector3.forward, Vector3.back, Vector3.left, Vector3.right };
     private RaycastHit explosion;
@@ -51,6 +51,7 @@ public class BombController : MonoBehaviour
     {
         if (numBombs < maxBombs)
         {
+            
             currentCooldown -= Time.deltaTime;
             ui.CooldownBar(currentCooldown / maxCooldown);
             if (currentCooldown <= 0)
@@ -76,6 +77,8 @@ public class BombController : MonoBehaviour
             StartCoroutine(Explosion(playerBomb, fuseTime, layerMask));
             numBombs--;
             ui.UpdateBomb();
+            ui.totalBombsUsed++;
+            currentCooldown = maxCooldown;
             Debug.Log("Bomb Deployed");
         }
     }
@@ -100,6 +103,12 @@ public class BombController : MonoBehaviour
                     KillPlayer();
                     playerHit = true;
                     Debug.Log("Player hit");
+                }
+                else if (explosion.collider.gameObject.CompareTag("Enemy"))
+                {
+                    playerKey = Instantiate(prefabKey, new Vector3(Mathf.Round(explosion.collider.gameObject.transform.position.x), 1.25f, Mathf.Round(explosion.collider.gameObject.transform.position.z)), Quaternion.identity);
+                    Destroy(explosion.collider.gameObject);
+                    Debug.Log("hit enemy");
                 }
             }
             if (Physics.Raycast(obj.transform.position, direction * additionalRange, out explosion, explosionLength, collisionLayer))
