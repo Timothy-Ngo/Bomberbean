@@ -7,6 +7,7 @@ using System;
 
 public class UIController : MonoBehaviour
 {
+    [Header("UI Controller")]
     public GameObject pauseMenu;
     public GameObject bombIndicators;
     public GameObject gameOver;
@@ -22,19 +23,19 @@ public class UIController : MonoBehaviour
 
     [Header ("Player UI")]
     public Player player1;
-    public TextMeshProUGUI livesUI;
+    
     public Image[] heartIcons;
 
     [Header ("Keys UI")]
+    public Image[] keyIcons;
     public TextMeshProUGUI keysUI;
-
-    [Header ("Game Win")]
-    public GameObject winScreen;
 
     [Header ("Timer UI")]
     float currentTime;
-    public int startMinutes;
     public TextMeshProUGUI currentTimeText;
+
+    [Header ("Game Win")]
+    public GameObject winScreen;
 
     [Header ("Audio")]
     public AudioSource loseSound;
@@ -51,7 +52,7 @@ public class UIController : MonoBehaviour
         barSize = cooldownBar.rectTransform;
         CooldownBar(0);
 
-        currentTime = startMinutes * 60;
+        currentTime = 0;
     }
     
     
@@ -65,14 +66,10 @@ public class UIController : MonoBehaviour
             else   
                 PauseGame();
         }
-        currentTime -= Time.deltaTime;
+        currentTime += Time.deltaTime;
         
         TimeSpan time = TimeSpan.FromSeconds(currentTime);
-        if (time.Seconds == 0 && time.Minutes == 0)
-        {
-            GameOver();
-        }
-        currentTimeText.text = time.Minutes.ToString() + ":" + time.Seconds.ToString();
+        currentTimeText.text = time.Minutes.ToString("D2") + ":" + time.Seconds.ToString("D2");
 
         
        
@@ -115,10 +112,9 @@ public class UIController : MonoBehaviour
 
     private void InitIcons()
     {
-        foreach ( Image img in heartIcons)
-            img.enabled = true;
-        foreach (Image img in bombIcons)
-            img.enabled = true;
+        UpdateBomb();
+        UpdateLives();
+        UpdateKeys();
     }
 
     public void UpdateBomb()
@@ -127,9 +123,10 @@ public class UIController : MonoBehaviour
         // Enables bomb icons in accordance to available bombs to the player
         for (int i = 0; i < bombIcons.Length; ++i)
             bombIcons[i].enabled = (i < bc.numBombs);
+        Debug.Log("numBombs: " + bc.numBombs);
     }
 
-    public void UpdatePlayer()
+    public void UpdateLives()
     {
         //livesUI.text = "Lives: " + player1.numLives;  
         // Enables heart icons in accordance to amount of lives available to the player
@@ -141,7 +138,10 @@ public class UIController : MonoBehaviour
 
     public void UpdateKeys()
     {
-        keysUI.text = "Keys: " + player1.numKeys;
+        //keysUI.text = "Keys: " + player1.numKeys;
+        // Enables key icons in accordance to the amount of keys the player has
+        for (int i = 0; i < keyIcons.Length; ++i)
+            keyIcons[i].enabled = (i < player1.numKeys);
     }
 
 }

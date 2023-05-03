@@ -5,7 +5,7 @@ using UnityEngine;
 public class BombController : MonoBehaviour
 {
 
-    [Header("UI")] 
+    [Header("UI")]
     public UIController ui;
     public int maxBombs = 2;
     public float maxCooldown = 3.0f;
@@ -30,12 +30,12 @@ public class BombController : MonoBehaviour
     [Header("Keys")]
     public GameObject prefabKey;
     private GameObject playerKey;
-    
+
     [Header("Audio")]
     public AudioSource[] sounds;
     public AudioSource bombPutDown;
     public AudioSource bombExplosion;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,7 +43,7 @@ public class BombController : MonoBehaviour
         numBombs = maxBombs;
         layerMask = 1 << layerNum;
 
-        
+
     }
 
     // Update is called once per frame
@@ -57,7 +57,7 @@ public class BombController : MonoBehaviour
             {
                 currentCooldown = maxCooldown;
                 numBombs++;
-                ui.UpdateBomb(); // Changed not tested
+                ui.UpdateBomb();
             }
             //Debug.Log("currentCooldown: " + currentCooldown);
         }
@@ -66,8 +66,8 @@ public class BombController : MonoBehaviour
     public void DeployBomb()
     {
         if (numBombs > 0)
-        {   
-            
+        {
+
             playerBomb = Instantiate(prefabBomb, new Vector3(Mathf.Round(playerObj.transform.position.x), 1, Mathf.Round(playerObj.transform.position.z)), Quaternion.identity);
             sounds = playerBomb.GetComponents<AudioSource>();
             bombPutDown = sounds[0];
@@ -75,31 +75,29 @@ public class BombController : MonoBehaviour
             bombPutDown.Play();
             StartCoroutine(Explosion(playerBomb, fuseTime, layerMask));
             numBombs--;
-            ui.UpdateBomb(); // Changed not tested
+            ui.UpdateBomb();
             Debug.Log("Bomb Deployed");
-
-            
         }
     }
 
     IEnumerator Explosion(GameObject obj, float destroyTime, int collisionLayer)
     {
-        
+
         bool playerHit = false;
         Destroy(obj, destroyTime);
         yield return new WaitForSeconds(destroyTime - 0.1f);
         bombExplosion.Play();
         Debug.Log("Explosion");
-        foreach(Vector3 direction in directions)
+        foreach (Vector3 direction in directions)
         {
-            if (!playerHit && Physics.Raycast(obj.transform.position - direction, direction * additionalRange, out explosion, explosionLength, collisionLayer) )
+            if (!playerHit && Physics.Raycast(obj.transform.position - direction, direction * additionalRange, out explosion, explosionLength, collisionLayer))
             {
-               if (explosion.collider.gameObject.CompareTag("Player"))
-               {
+                if (explosion.collider.gameObject.CompareTag("Player"))
+                {
                     KillPlayer();
                     playerHit = true;
                     Debug.Log("Player hit");
-               } 
+                }
             }
             if (Physics.Raycast(obj.transform.position, direction * additionalRange, out explosion, explosionLength, collisionLayer))
             {
@@ -112,16 +110,16 @@ public class BombController : MonoBehaviour
                     playerKey = Instantiate(prefabKey, new Vector3(Mathf.Round(explosion.collider.gameObject.transform.position.x), 1.25f, Mathf.Round(explosion.collider.gameObject.transform.position.z)), Quaternion.identity);
                     Destroy(explosion.collider.gameObject);
                     Debug.Log("hit enemy");
-                } 
+                }
                 else if (explosion.collider.gameObject.CompareTag("Player"))
                 {
                     KillPlayer();
                     playerHit = true;
                     Debug.Log("Player hit");
-                } 
+                }
             }
         }
-        
+
     }
 
     public void KillPlayer()
