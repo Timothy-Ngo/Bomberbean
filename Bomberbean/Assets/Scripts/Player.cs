@@ -31,7 +31,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         numLives = maxLives; 
-        ui.UpdatePlayer();  
+        ui.UpdateLives();  
 
         sounds = GetComponents<AudioSource>();
         deathSound = sounds[0];
@@ -53,13 +53,13 @@ public class Player : MonoBehaviour
     {
         deathSound.Play();
         --numLives;
-        ui.UpdatePlayer();
+        ui.UpdateLives();
     }
 
     public void ResetLives()
     {
         numLives = maxLives;
-        ui.UpdatePlayer();
+        ui.UpdateLives();
     }
 
     public IEnumerator Respawn()

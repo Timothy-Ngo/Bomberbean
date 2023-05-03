@@ -97,7 +97,7 @@ public class AIController : MonoBehaviour
 
                 targetPosition = new Vector3(Mathf.Round(spacesX), 1, Mathf.Round(spacesZ));
             }
-            Debug.Log(targetPosition);
+            //Debug.Log(targetPosition);
         /*
             if (targetPosition.x < transform.position.x)
             {
