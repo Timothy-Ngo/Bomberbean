@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     public int numKeys = 0;
 
     public UIController ui;
+    public InputController input;
     private Vector3 currentPosition;
 
     [Header("Respawn")]
@@ -44,10 +45,12 @@ public class Player : MonoBehaviour
     {
 
     }
-
     public void Move(Vector3 newPos)
     {
-        transform.position = transform.position  + (newPos * movementSpeed);
+        currentPosition = transform.position + (newPos * movementSpeed);
+        transform.LookAt(currentPosition);
+        transform.position = currentPosition;
+
     }
     public void DecLives()
     {
@@ -64,9 +67,13 @@ public class Player : MonoBehaviour
 
     public IEnumerator Respawn()
     {
-        transform.Translate(new Vector3(transform.position.x, transform.position.y + addHeight, transform.position.z));
-        yield return new WaitForSeconds(respawnTime);
+        //transform.Translate(new Vector3(transform.position.x, transform.position.y + addHeight, transform.position.z));
+        input.enabled = false;
+        GetComponent<MeshRenderer>().enabled = false;
         transform.position = respawnPoint;
+        yield return new WaitForSeconds(respawnTime);
+        GetComponent<MeshRenderer>().enabled = true;
+        input.enabled = true;
         reviveSound.Play();
     }
 

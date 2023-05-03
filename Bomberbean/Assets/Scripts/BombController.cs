@@ -68,7 +68,7 @@ public class BombController : MonoBehaviour
         if (numBombs > 0)
         {
 
-            playerBomb = Instantiate(prefabBomb, new Vector3(Mathf.Round(playerObj.transform.position.x), 1.5f, Mathf.Round(playerObj.transform.position.z)), Quaternion.identity);
+            playerBomb = Instantiate(prefabBomb, new Vector3(Mathf.Round(playerObj.transform.position.x) , 1, Mathf.Round(playerObj.transform.position.z)) - new Vector3(0.3f,0,0.3f), Quaternion.Euler(60,45,0));
             sounds = playerBomb.GetComponents<AudioSource>();
             bombPutDown = sounds[0];
             bombExplosion = sounds[1];
@@ -94,6 +94,7 @@ public class BombController : MonoBehaviour
         {
             if (!playerHit && Physics.Raycast(obj.transform.position - direction, direction * additionalRange, out explosion, explosionLength, collisionLayer))
             {
+                Debug.Log("Something hit");
                 if (explosion.collider.gameObject.CompareTag("Player"))
                 {
                     KillPlayer();
@@ -103,6 +104,7 @@ public class BombController : MonoBehaviour
             }
             if (Physics.Raycast(obj.transform.position, direction * additionalRange, out explosion, explosionLength, collisionLayer))
             {
+                Debug.Log("Something else hit ");
                 if (explosion.collider.gameObject.CompareTag("BreakableBlock"))
                 {
                     Destroy(explosion.collider.gameObject);
