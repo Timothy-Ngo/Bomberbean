@@ -6,7 +6,6 @@ public class AIController : MonoBehaviour
 {
     private Rigidbody m_Rb;
     public GameObject player;
-    public Transform enemy;
     public float movementSpeed = 1f;
 
     private int rangeMin = 0;
