@@ -7,6 +7,7 @@ public class AIController : MonoBehaviour
     private Rigidbody m_Rb;
     public GameObject player;
     public float movementSpeed = 1f;
+    public float movementFrequency = 2f;
 
     private int rangeMin = 0;
     private int rangeMax = 3;
@@ -59,7 +60,7 @@ public class AIController : MonoBehaviour
     {
         while(true)
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(movementFrequency);
 
             
 

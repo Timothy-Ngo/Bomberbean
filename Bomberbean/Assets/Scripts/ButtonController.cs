@@ -8,17 +8,24 @@ public class ButtonController : MonoBehaviour
 
     [SerializeField] RectTransform fader;
 
-    private void Start() 
-    {
-        fader.gameObject.SetActive (true);
+    public UIController ui;
 
-        LeanTween.scale (fader, new Vector3 (1, 1, 1), 0);
-        LeanTween.scale (fader, Vector3.zero, 0.5f).setEase (LeanTweenType.easeInOutQuad).setOnComplete (() => {
-            fader.gameObject.SetActive (false);
-        });
+    private void Start() 
+    {   /*
+        if (!(Input.GetKey(KeyCode.Escape)))
+        {   
+            Debug.Log("Shrink");
+            fader.gameObject.SetActive(true);
+
+            LeanTween.scale (fader, new Vector3 (1, 1, 1), 0);
+            LeanTween.scale (fader, Vector3.zero, 0.5f).setEase (LeanTweenType.easeInOutQuad).setOnComplete (() => {
+                fader.gameObject.SetActive (false);
+            });
+        }
+        */
     }
 
-    public void StartGame()
+    public void StartLevel1()
     {
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         //SceneManager.LoadScene("Level 1");
@@ -27,6 +34,41 @@ public class ButtonController : MonoBehaviour
         LeanTween.scale (fader, Vector3.zero, 0f);
         LeanTween.scale (fader, new Vector3 (1, 1, 1), 0.5f).setEase (LeanTweenType.easeInOutQuad).setOnComplete (() => {
             SceneManager.LoadScene("Level 1");
+        });
+    }
+
+    public void StartLevel2()
+    {
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        //SceneManager.LoadScene("Level 2");
+        fader.gameObject.SetActive (true);
+
+        LeanTween.scale (fader, Vector3.zero, 0f);
+        LeanTween.scale (fader, new Vector3 (1, 1, 1), 0.5f).setEase (LeanTweenType.easeInOutQuad).setOnComplete (() => {
+            SceneManager.LoadScene("Level 2");
+        });
+    }
+
+    public void StartLevel3()
+    {
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        //SceneManager.LoadScene("Level 3");
+        fader.gameObject.SetActive (true);
+
+        LeanTween.scale (fader, Vector3.zero, 0f);
+        LeanTween.scale (fader, new Vector3 (1, 1, 1), 0.5f).setEase (LeanTweenType.easeInOutQuad).setOnComplete (() => {
+            SceneManager.LoadScene("Level 3");
+        });
+    }
+
+    public void LevelSelect()
+    {
+        //SceneManager.LoadScene("Level Select");
+        fader.gameObject.SetActive (true);
+
+        LeanTween.scale (fader, Vector3.zero, 0f);
+        LeanTween.scale (fader, new Vector3 (1, 1, 1), 0.5f).setEase (LeanTweenType.easeInOutQuad).setOnComplete (() => {
+            SceneManager.LoadScene("Level Select");
         });
     }
 
@@ -46,6 +88,20 @@ public class ButtonController : MonoBehaviour
 
     public void BackToMainMenu()
     {
+        //SceneManager.LoadScene("MainMenu");
+        fader.gameObject.SetActive (true);
+
+        LeanTween.scale (fader, Vector3.zero, 0f);
+        LeanTween.scale (fader, new Vector3 (1, 1, 1), 0.5f).setEase (LeanTweenType.easeInOutQuad).setOnComplete (() => {
+            SceneManager.LoadScene("MainMenu");
+        });
+        
+    }
+
+    public void BackToMainMenuInGame()
+    {
+        if (ui.isPaused == true)
+            ui.UnpauseGame();
         //SceneManager.LoadScene("MainMenu");
         fader.gameObject.SetActive (true);
 

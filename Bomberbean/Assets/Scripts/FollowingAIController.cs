@@ -16,13 +16,14 @@ public class FollowingAIController : MonoBehaviour
     public GameObject player;
     public float movementSpeed = 1f;
     public Vector3 targetPosition;
+    public Vector3 prevPosition;
 
     void Start()
     {
         isMoving = false;
         bestPath = Vector3.zero;
         prevPath = Vector3.zero;
-       
+        prevPosition = Vector3.zero;
     }
 
     void Update()
@@ -35,6 +36,7 @@ public class FollowingAIController : MonoBehaviour
             {
                 transform.position = targetPosition;
                 isMoving = false;
+                prevPosition = targetPosition;
             }
             
         }
@@ -55,7 +57,7 @@ public class FollowingAIController : MonoBehaviour
                 Debug.Log("Only one Path: " + openPaths[0]);
                 targetPosition = transform.position + openPaths[0];
                 isMoving = true;
-                prevPath = openPaths[0];
+                //prevPath = openPaths[0];
             }
             else
             {
@@ -91,7 +93,7 @@ public class FollowingAIController : MonoBehaviour
                     }
 
                     Debug.Log("Currently Checking Path: " + path);
-                    if (path == -(prevPath))
+                    if (false) //path == -(prevPath)
                     {
                         ;
                     }
@@ -107,7 +109,7 @@ public class FollowingAIController : MonoBehaviour
                 }
                 targetPosition = transform.position + bestPath;
                 isMoving = true;
-                prevPath = bestPath;
+                //prevPath = bestPath;
 
             }
 
@@ -161,6 +163,12 @@ public class FollowingAIController : MonoBehaviour
     private float FindClampedAngle(Vector3 dir) // Finds an angle from the x-axis and clamps it between 0-359 (deg)
     {
         return (((Mathf.Atan2(Mathf.RoundToInt(dir.z), Mathf.RoundToInt(dir.x)) * Mathf.Rad2Deg) + 360) % 360);
+    }
+
+    void OnCollisionEnter(Collision col)
+    {
+        if (col.gameObject.CompareTag("Enemy"))
+            targetPosition = prevPosition;
     }
 
 }

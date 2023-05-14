@@ -7,11 +7,12 @@ using System;
 
 public class UIController : MonoBehaviour
 {
+
     [Header("UI Controller")]
     public GameObject pauseMenu;
     public GameObject bombIndicators;
     public GameObject gameOver;
-    private bool isPaused;
+    public bool isPaused;
 
     [Header("Bomb UI")]
     public BombController bc;

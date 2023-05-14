@@ -93,9 +93,9 @@ public class Player : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Key"))
         {
+            col.gameObject.SetActive(false);
             pickupSound.Play();
             numKeys++;
-            col.gameObject.SetActive(false);
             ui.UpdateKeys();
             Debug.Log("picked up key");
         }
