@@ -43,7 +43,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        toggleTimer += Time.deltaTime;
     }
     public void Move(Vector3 newPos)
     {
@@ -89,14 +89,21 @@ public class Player : MonoBehaviour
         }
     }
 
+
+    public float toggleTimer = 0f;
+
+
     void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.CompareTag("Key"))
+        Debug.Log("In OnTriggerEnter");
+        if ((toggleTimer > 0.5) && col.gameObject.CompareTag("Key"))
         {
+            toggleTimer = 0f;
             col.gameObject.SetActive(false);
             pickupSound.Play();
             numKeys++;
             ui.UpdateKeys();
+            Destroy(col.gameObject);
             Debug.Log("picked up key");
         }
     }

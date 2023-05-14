@@ -28,6 +28,7 @@ public class UIController : MonoBehaviour
     public Image[] heartIcons;
 
     [Header ("Keys UI")]
+    
     public Image[] keyIcons;
     public TextMeshProUGUI keysUI;
 
@@ -152,8 +153,10 @@ public class UIController : MonoBehaviour
     {
         //keysUI.text = "Keys: " + player1.numKeys;
         // Enables key icons in accordance to the amount of keys the player has
-        for (int i = 0; i < keyIcons.Length; ++i)
+        Debug.Log("in UpdateKeys");
+        for (int i = 0; i < keyIcons.Length; i++)
             keyIcons[i].enabled = (i < player1.numKeys);
+
     }
 
 }

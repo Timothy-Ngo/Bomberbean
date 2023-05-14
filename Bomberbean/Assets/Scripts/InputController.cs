@@ -29,23 +29,23 @@ public class InputController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.D)) 
+        if (Input.GetKey(KeyCode.D) && !(Input.GetKey(KeyCode.W)) && !(Input.GetKey(KeyCode.S))) 
         {
             player1.Move(Vector3.right * Time.deltaTime); 
              
         }
 
-        if (Input.GetKey(KeyCode.A)) 
+        if (Input.GetKey(KeyCode.A) && !(Input.GetKey(KeyCode.W)) && !(Input.GetKey(KeyCode.S))) 
         {
             player1.Move(Vector3.left * Time.deltaTime);
         }
 
-        if (Input.GetKey(KeyCode.W)) 
+        if (Input.GetKey(KeyCode.W) && !(Input.GetKey(KeyCode.A)) && !(Input.GetKey(KeyCode.D))) 
         {
             player1.Move(Vector3.forward * Time.deltaTime);
         }
 
-        if (Input.GetKey(KeyCode.S)) 
+        if (Input.GetKey(KeyCode.S) && !(Input.GetKey(KeyCode.A)) && !(Input.GetKey(KeyCode.D))) 
         {
             player1.Move(Vector3.back * Time.deltaTime);
         }

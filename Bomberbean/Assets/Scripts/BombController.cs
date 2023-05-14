@@ -10,7 +10,7 @@ public class BombController : MonoBehaviour
     public int maxBombs = 2;
     public float maxCooldown = 3.0f;
     public int numBombs;
-    private float currentCooldown = 0;
+    private float currentCooldown;
 
     [Header("Bomb Rendering")]
     public GameObject prefabBomb;
@@ -42,7 +42,7 @@ public class BombController : MonoBehaviour
         player1 = playerObj.GetComponent<Player>();
         numBombs = maxBombs;
         layerMask = 1 << layerNum;
-
+        currentCooldown = maxCooldown;
 
     }
 
@@ -78,7 +78,7 @@ public class BombController : MonoBehaviour
             numBombs--;
             ui.UpdateBomb();
             ui.totalBombsUsed++;
-            currentCooldown = maxCooldown;
+            //currentCooldown = maxCooldown;
             Debug.Log("Bomb Deployed");
         }
     }
@@ -87,6 +87,7 @@ public class BombController : MonoBehaviour
     {
 
         bool playerHit = false;
+        GameObject enemyHit = new GameObject(); 
         Destroy(obj, destroyTime);
         yield return new WaitForSeconds(destroyTime - 1);
         bombExplosion.Play();
@@ -104,8 +105,9 @@ public class BombController : MonoBehaviour
                     playerHit = true;
                     Debug.Log("Player hit");
                 }
-                else if (explosion.collider.gameObject.CompareTag("Enemy"))
+                else if (explosion.collider.gameObject.CompareTag("Enemy") && enemyHit != explosion.collider.gameObject)
                 {
+                    enemyHit = explosion.collider.gameObject;
                     playerKey = Instantiate(prefabKey, new Vector3(Mathf.Round(explosion.collider.gameObject.transform.position.x), 1.25f, Mathf.Round(explosion.collider.gameObject.transform.position.z)), Quaternion.identity);
                     Destroy(explosion.collider.gameObject);
                     Debug.Log("hit enemy");
@@ -118,8 +120,9 @@ public class BombController : MonoBehaviour
                 {
                     Destroy(explosion.collider.gameObject);
                 }
-                else if (explosion.collider.gameObject.CompareTag("Enemy"))
+                else if (explosion.collider.gameObject.CompareTag("Enemy") && enemyHit != explosion.collider.gameObject)
                 {
+                    enemyHit = explosion.collider.gameObject;
                     playerKey = Instantiate(prefabKey, new Vector3(Mathf.Round(explosion.collider.gameObject.transform.position.x), 1.25f, Mathf.Round(explosion.collider.gameObject.transform.position.z)), Quaternion.identity);
                     Destroy(explosion.collider.gameObject);
                     Debug.Log("hit enemy");
@@ -132,7 +135,7 @@ public class BombController : MonoBehaviour
                 }
             }
         }
-
+        Destroy(enemyHit);
     }
 
     public void KillPlayer()
