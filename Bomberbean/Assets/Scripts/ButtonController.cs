@@ -29,6 +29,7 @@ public class ButtonController : MonoBehaviour
     {
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         //SceneManager.LoadScene("Level 1");
+        BGMusic.instance.GetComponent<AudioSource>().Pause();
         fader.gameObject.SetActive (true);
 
         LeanTween.scale (fader, Vector3.zero, 0f);
@@ -41,6 +42,7 @@ public class ButtonController : MonoBehaviour
     {
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         //SceneManager.LoadScene("Level 2");
+        BGMusic.instance.GetComponent<AudioSource>().Pause();
         fader.gameObject.SetActive (true);
 
         LeanTween.scale (fader, Vector3.zero, 0f);
@@ -53,6 +55,7 @@ public class ButtonController : MonoBehaviour
     {
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         //SceneManager.LoadScene("Level 3");
+        BGMusic.instance.GetComponent<AudioSource>().Pause();
         fader.gameObject.SetActive (true);
 
         LeanTween.scale (fader, Vector3.zero, 0f);
@@ -63,6 +66,20 @@ public class ButtonController : MonoBehaviour
 
     public void LevelSelect()
     {
+        //SceneManager.LoadScene("Level Select");
+        fader.gameObject.SetActive (true);
+
+        LeanTween.scale (fader, Vector3.zero, 0f);
+        LeanTween.scale (fader, new Vector3 (1, 1, 1), 0.5f).setEase (LeanTweenType.easeInOutQuad).setOnComplete (() => {
+            SceneManager.LoadScene("Level Select");
+        });
+    }
+
+    public void LevelSelectInGame()
+    {
+        ui.UnpauseGame();
+        BGMusic.instance.GetComponent<AudioSource>().Play();
+
         //SceneManager.LoadScene("Level Select");
         fader.gameObject.SetActive (true);
 
@@ -100,8 +117,8 @@ public class ButtonController : MonoBehaviour
 
     public void BackToMainMenuInGame()
     {
-        if (ui.isPaused == true)
-            ui.UnpauseGame();
+        ui.UnpauseGame();
+        BGMusic.instance.GetComponent<AudioSource>().Play();
         //SceneManager.LoadScene("MainMenu");
         fader.gameObject.SetActive (true);
 

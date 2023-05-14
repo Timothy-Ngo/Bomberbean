@@ -22,7 +22,7 @@ public class WinCondition : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Player"))
         {
-            if (col.gameObject.GetComponent<Player>().numKeys >= 2)
+            if (col.gameObject.GetComponent<Player>().numKeys >= 3)
             {
                 ui.GameWin();
                 Debug.Log("Player wins");

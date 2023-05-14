@@ -31,6 +31,7 @@ public class UIController : MonoBehaviour
     
     public Image[] keyIcons;
     public TextMeshProUGUI keysUI;
+    public TextMeshProUGUI instructionText;
 
     [Header ("Timer UI")]
     float currentTime;
@@ -156,6 +157,9 @@ public class UIController : MonoBehaviour
         Debug.Log("in UpdateKeys");
         for (int i = 0; i < keyIcons.Length; i++)
             keyIcons[i].enabled = (i < player1.numKeys);
+        
+        if (player1.numKeys == 3)
+            instructionText.text = "door unlocked!";
 
     }
 

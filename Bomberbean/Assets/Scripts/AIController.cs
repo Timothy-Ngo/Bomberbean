@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class AIController : MonoBehaviour
 {
-    private Rigidbody m_Rb;
     public GameObject player;
     public float movementSpeed = 1f;
     public float movementFrequency = 2f;
@@ -17,47 +16,116 @@ public class AIController : MonoBehaviour
     private int actionNum = 0;
     private float spacesX = 0f;
     private float spacesZ = 0f;
+    private bool isMoving = false;
+    private float step;
+    private int prevAction = 0;
+    private Vector3[] directions = {Vector3.forward, Vector3.left, Vector3.back, Vector3.right};
+    private float maxDistanceCheck = 1f;
+    private bool beingHit;
 
-    Vector3 targetPosition, movement;
-
+    public Vector3 targetPosition, movement, prevPosition;
 
     // Start is called before the first frame update
     void Start()
     {
-        m_Rb = GetComponent<Rigidbody>();
+        isMoving = false;
         spacesX = transform.position.x;
         spacesZ = transform.position.z;
-        StartCoroutine(AIMovement());
+        prevPosition = transform.position;
+        beingHit = false;
+        //StartCoroutine(AIMovement());
+        StartCoroutine(ChoosePath());
     }
 
+    /*
     void FixedUpdate()
     {
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, movementSpeed*Time.deltaTime);
-        //Vector3 newDirection = Vector3.RotateTowards(transform.forward, new Vector3(0, targetPosition.y, 0), movementSpeed*Time.deltaTime, 0.0f);
-        //newDirection = new Vector3(0, newDirection.y, 0);
-        //transform.rotation = Quaternion.LookRotation(newDirection);
-        /*
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
-        //Vector3 movement = new Vector3(1, 0, 0).normalized;
-        //if (movement == Vector3.zero)
-        //{
-        //    return;
-        //}
+    }
+    */
+    void Update() 
+    {
+        if (isMoving)
+        {
+            step = movementSpeed * Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
+            if (ApproximatelyNear(transform.position, targetPosition, 0.0001f))
+            {
+                transform.position = targetPosition;
+                isMoving = false;
+                prevPosition = targetPosition;
+                StartCoroutine(ChoosePath());
+            }
+        }
+    }
+    
+    IEnumerator ChoosePath()
+    {
+        yield return new WaitForSeconds(Random.Range(0,3));
+        beingHit = false;
+        List<Vector3> openPaths = FindOpenPaths();
+        if (openPaths.Count > 0)
+        {
+            actionNum = Random.Range(rangeMin, openPaths.Count);
+            Debug.Log("Action num: " + actionNum);
+            targetPosition = transform.position + openPaths[actionNum];
 
-        targetPosition = targetPosition.normalized;
-        Quaternion targetRotation = Quaternion.LookRotation(targetPosition);
-        targetRotation = Quaternion.RotateTowards(
-            transform.rotation,
-            targetRotation,
-            360 * Time.fixedDeltaTime);
-        //m_Rb.MovePosition(m_Rb.position + targetPosition * movementSpeed * Time.fixedDeltaTime);
-        //m_Rb.MoveRotation(targetRotation);
-        */
+            isMoving = true;
+        }
+    }
+
+    private List<Vector3> FindOpenPaths() // Return directions(Vector3) that AI can be moved to 
+    {
+        List<Vector3> openPaths = new List<Vector3>();
+        foreach (Vector3 direction in directions)
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, direction, out hit, maxDistanceCheck))
+            {
+                if (hit.collider.gameObject.CompareTag("Player"))
+                {
+                    openPaths.Add(direction);
+                }
+                Debug.Log(hit.collider.name);
+            }
+            else if (Physics.Raycast(transform.position, direction, out hit, maxDistanceCheck*2))
+            {
+                if (hit.collider.gameObject.CompareTag("Enemy"))
+                {
+                    Debug.Log(hit.collider.name);
+                }
+                else 
+                {
+                    openPaths.Add(direction);
+                }
+
+            }
+            else 
+            {
+                openPaths.Add(direction);
+            }
+        }
+        return openPaths;
+
+    }
+
+    private bool ApproximatelyNear(Vector3 posA, Vector3 posB, float precision)
+    {
+        return (Vector3.Distance(posA, posB) < precision);
+    }
+
+    void OnCollisionEnter(Collision col)
+    {
+        if (col.gameObject.CompareTag("Enemy"))
+        {
+            targetPosition = prevPosition;
+            beingHit = true;
+        }
     }
 
     IEnumerator AIMovement()
     {
+        int prevAction = 0;
         while(true)
         {
             yield return new WaitForSeconds(movementFrequency);
@@ -65,6 +133,12 @@ public class AIController : MonoBehaviour
             
 
             actionNum = Random.Range(rangeMin, actionRange);
+            if (actionNum == prevAction)
+            {
+                actionNum++;
+                
+            }
+
 
             if (actionNum == 0) // move towards player
             {
@@ -96,44 +170,17 @@ public class AIController : MonoBehaviour
                 }
 
                 targetPosition = new Vector3(Mathf.Round(spacesX), 1, Mathf.Round(spacesZ));
-            }
-            //Debug.Log(targetPosition);
-        /*
-            if (targetPosition.x < transform.position.x)
-            {
-                transform.Rotate(new Vector3(0, 90, 0));
-            }
-            else if (targetPosition.x < transform.position.x)
-            {
-                transform.Rotate(new Vector3(0, -90, 0));
-            }
-            else if (targetPosition.z < transform.position.z)
-            {
-                transform.Rotate(new Vector3(0, 180, 0));
-            }
-            else
-            {
-                transform.Rotate(new Vector3(0, 0, 0));
-            }
-          */  
+                
+            } 
         }
     }
-
+    /*
     void OnCollisionEnter(Collision collision)
     {
         targetPosition = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y), Mathf.Round(transform.position.z));
         
-        /*if (enemy.eulerAngles.y < 0) {
-            //enemy.eulerAngles.y += 360f
-            transform.rotation = Quaternion.Euler(new Vector3(0,180,0));
-        }
-        else
-        {
-            //enemy.eulerAngles.y -= 180f;
-            transform.rotation = Quaternion.Euler(new Vector3(0,0,0));
-        } 
-        */
         spacesX = Mathf.Round(transform.position.x);
         spacesZ = Mathf.Round(transform.position.z);
     }
+    */
 }
