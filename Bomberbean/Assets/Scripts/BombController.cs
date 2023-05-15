@@ -43,6 +43,7 @@ public class BombController : MonoBehaviour
         numBombs = maxBombs;
         layerMask = 1 << layerNum;
         currentCooldown = maxCooldown;
+        explosionLength = 1.5f;
 
     }
 

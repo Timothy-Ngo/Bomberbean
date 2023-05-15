@@ -29201,7 +29201,7 @@ MonoBehaviour:
   playerObj: {fileID: 1410763416}
   fuseTime: 2.5
   layerNum: 7
-  explosionLength: 1
+  explosionLength: 1.5
   additionalRange: 1.5
   prefabKey: {fileID: 170560, guid: cc5de5e674870ca479a40105f80555ad, type: 3}
   sounds:
